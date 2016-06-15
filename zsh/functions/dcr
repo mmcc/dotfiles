@@ -1,0 +1,7 @@
+# Run a Mux command within docker
+#
+#   dcr mix run priv/seeds/dev-seeds.exs
+
+function dcr() {
+  docker exec mux_mux_1 ${@:1}
+}

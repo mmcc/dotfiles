@@ -7,7 +7,6 @@ alias v="$VISUAL"
 
 # Docker
 alias dc='docker-compose'
-alias dcr='docker-compose run'
 alias dm='docker-machine'
 
 alias flush="sudo killall -HUP mDNSResponder"
