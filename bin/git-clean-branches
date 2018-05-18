@@ -1,0 +1,32 @@
+#!/bin/bash
+
+clean_branches ()
+{
+  BRANCHES=`git branch | awk '{print $1}' | awk '!/\*/'`
+  for branch in $BRANCHES;
+  do
+    if [[ "$@" == 'all' ]]
+    then
+      printf 'good bye %s\n' $branch
+      git branch -D $branch
+      git push origin :$branch
+    else
+      printf '\n\nDelete %s locally?\ny/[n]: ' $branch
+      read deletelocal
+      if [[ "$deletelocal" == 'y' ]]
+      then
+        printf 'good bye %s\n' $branch
+        git branch -D $branch
+        printf '\n\nDelete %s at origin?\ny/[n]: ' $branch
+        read deleteremote
+        if [[ "$deleteremote" == 'y' ]]
+        then
+          printf 'good bye %s\n' $branch
+          git push origin :$branch
+        fi
+      fi
+    fi
+  done
+}
+
+clean_branches

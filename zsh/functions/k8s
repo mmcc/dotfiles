@@ -1,0 +1,13 @@
+# Initialize kubectl
+
+function k8sinit() {
+  export MASTER_HOST=master.k8s.mux
+  export CA_CERT=/keybase/private/mmcc/cfssl/ca.pem
+  export ADMIN_KEY=/keybase/private/mmcc/cfssl/k8s-admin-key.pem
+  export ADMIN_CERT=/keybase/private/mmcc/cfssl/k8s-admin.pem
+
+  kubectl config set-cluster default-cluster --server=https://${MASTER_HOST} --certificate-authority=${CA_CERT}
+  kubectl config set-credentials default-admin --certificate-authority=${CA_CERT} --client-key=${ADMIN_KEY} --client-certificate=${ADMIN_CERT}
+  kubectl config set-context default-system --cluster=default-cluster --user=default-admin
+  kubectl config use-context default-system
+}
